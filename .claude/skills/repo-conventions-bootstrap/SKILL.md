@@ -28,6 +28,7 @@ Work through these dimensions when inspecting the repository, and record what th
 - Error handling and logging: the dominant strategy (exceptions, result types, error codes) and where cross-cutting concerns are handled.
 - Testing: framework, test types present, and how tests mirror the source layout.
 - Tooling and workflow: authoritative build, test, lint, and run commands, and any generated files that must not be hand-edited.
+- Operational lore: non-obvious facts a fresh session would otherwise rediscover the hard way - required flags, tokens, or environment variables, tool quirks and their exact error strings, order-dependent steps, known dead ends with their working paths. Record each with the exact command as evidence; these entries repay their lines fastest.
 - Maintainability and health: whether the code reads as deliberately built or as accumulated generated slop - near-duplicate blocks, dead or unreachable code, mixed contradictory styles, oversized functions, meaningless names, boilerplate comments, unused dependencies. Judge this across multiple files and modules; a single bad file is not a verdict.
 
 When the stack is unfamiliar, read the official documentation for the versions the repository pins before judging its patterns - the relevant pages properly, as a person would - verify doc claims against the code, and cite the documentation as evidence where a convention rests on it.

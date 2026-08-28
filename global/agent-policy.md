@@ -28,7 +28,12 @@ This policy is always active in every coding agent it is installed into. It appl
 ## Learning
 
 - Where the policy is silent or still young on a topic, follow the strongest pattern in the surrounding code and append what you learned to `Pending observations`; do not invent a rule.
-- At the end of a task that confirmed, contradicted, or newly discovered a durable pattern - or where the user decided a convention question - append one entry stamped with the current UTC datetime (ISO 8601) to `Pending observations` with its evidence and source. Entries there carry no authority until the curator promotes them.
+- Treat the policy read at the start of the conversation as the session's stable contract: mid-task learnings go only to the inbox, so rules never shift under a task in flight.
+- End every task with a short consolidation pass - a deliberate step, not a side effect, because learnings not written down at task end are simply lost. Ask: did this task confirm, contradict, or newly discover a durable pattern; did the user state a preference, correction, or decision; did I recover from errors or dead ends to a working path the next session should not have to rediscover? Append one entry per durable learning, stamped with the current UTC datetime (ISO 8601), with its evidence and source. Entries there carry no authority until the curator promotes them.
+- Record in this priority: user preferences and corrections first; then operational lore - exact commands, required flags, tokens, or environment variables, tool quirks, exact error strings, and their workarounds; then working procedures; then structural observations. Operational lore repays its lines fastest: it is precisely what every fresh session otherwise rediscovers the hard way.
+- Skip what does not belong in policy: trivial or obvious facts, anything cheaply re-derived from the code, raw output dumps, task progress, and completed-work logs. General programming knowledge is not repository lore.
+- A fact that only ever appeared in command output or a file read is the easiest to lose - quote the exact command and the decisive output line as the entry's evidence, not a paraphrase.
+- Before appending, scan the inbox for the same pattern: corroborate an existing entry by adding your datetime and evidence to it rather than appending a duplicate line.
 - When the inbox has accumulated several entries, suggest running `repo-conventions-curator` rather than triaging it yourself mid-task.
 
 ## Curation

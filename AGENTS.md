@@ -45,7 +45,7 @@
 
 Append-only inbox, triaged by the curator. Entry form: `YYYY-MM-DDTHH:MMZ - pattern - evidence - source (repo evidence | user decision)`.
 
-- None recorded yet.
+- 2026-08-28T11:15Z - The learning loop was strengthened by user direction to match measured self-learning practice from live agent-memory experiments: end-of-task consolidation as a deliberate step, operational-lore-first recording priority, exact-command evidence for facts that only appeared in tool output, a ~120-line block size budget with atomic make-room-and-add curation, and dead-end-to-working-path as a recording trigger - `global/agent-policy.md`, both skills, `template.md`, README - user decision.
 
 ## Open questions
 

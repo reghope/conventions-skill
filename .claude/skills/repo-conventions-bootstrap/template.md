@@ -6,7 +6,7 @@ Copy this block into the root `AGENTS.md` (or replace the unbootstrapped seed bl
 <!-- repo-conventions:begin v2 -->
 # Repository conventions
 
-> Managed by the repo-conventions skills. Curate with `repo-conventions-curator`; during ordinary implementation, change nothing here except appending to `Pending observations`. Keep it concise, human-readable, and evidence-backed - a policy, not a task log.
+> Managed by the repo-conventions skills. Curate with `repo-conventions-curator`; during ordinary implementation, change nothing here except appending to `Pending observations`. Keep it concise, human-readable, and evidence-backed - a policy, not a task log. Size budget: about 120 lines for the whole block; curation makes room and adds in the same pass rather than letting it grow.
 
 ## Working contract
 
@@ -19,7 +19,8 @@ Copy this block into the root `AGENTS.md` (or replace the unbootstrapped seed bl
 - If a genuinely better, still human-readable alternative would materially change architecture, behavior, APIs, data, dependencies, or a documented convention: stop and propose it with its tradeoffs before implementing. Continuing with the task is not approval.
 - Do not silently refactor unrelated code, and do not edit this block to justify an unapproved implementation.
 - Do not add a rule from a one-off implementation or a speculative preference.
-- At the end of a task that confirmed, contradicted, or newly discovered a durable pattern - or where the user decided a convention question - append one entry stamped with the current UTC datetime to `Pending observations` with its evidence. Entries there carry no authority until the curator promotes them.
+- End every task with a short consolidation pass: if it confirmed, contradicted, or newly discovered a durable pattern, if the user stated a preference, correction, or decision, or if you recovered from errors or dead ends to a working path the next session should not rediscover - append one entry per durable learning, stamped with the current UTC datetime, to `Pending observations` with its evidence. Entries there carry no authority until the curator promotes them.
+- Record user preferences and corrections first, then operational lore (exact commands, required flags or tokens, tool quirks, exact error strings, workarounds), then procedures, then structural observations. Skip trivial facts, anything cheaply re-derived from the code, raw output dumps, and task logs. A fact that only appeared in command output is easiest to lose - quote the command and the decisive output line as evidence. Corroborate an existing inbox entry rather than duplicating it.
 
 ## User directives
 
@@ -66,3 +67,11 @@ A pending observation from repository evidence:
 A pending observation from a user decision:
 
 - 2026-08-27T16:40Z - Integration tests live in `tests/integration/`, not next to source - stated by the user during a task - user decision.
+
+Operational lore - the entries that save the most rediscovery - looks like this. A confirmed convention recording a tool quirk with its exact command:
+
+- The integration rig refuses to run without `--rig-token` (exits 2: "missing or wrong --rig-token"); the token is documented in `rig/README.md`. Run stages with `node rig/check.mjs stage1 --rig-token <token>`. Scope: rig/. Evidence: `rig/check.mjs`, `rig/README.md`. Verified: 2026-08-27T18:12Z. Status: active.
+
+A pending observation recording a dead end recovered to a working path, with command-output evidence:
+
+- 2026-08-27T18:30Z - `npm test` from the repo root hangs on Windows; the working path is `npm test --workspace packages/core` (root run stalled at "collecting tests", workspace run completes in 40s) - command output from both runs - repo evidence.
