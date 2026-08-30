@@ -60,15 +60,31 @@ The run is unattended and must never stop for human permission. Testers judge ev
 
 For the gray zone, a **clearance loop**: the tester describes the exact action and its risk to the orchestrating agent and pauses until it rules. The orchestrator judges against the doctrine — allow only actions with no real-world footprint, deny when in doubt — and answers with one line of guidance. An unanswered request denies itself after a timeout so no tester ever hangs.
 
-## Orchestration and the report
+## The tester brief
 
-The orchestrating agent dispatches the team, then stays on watch: it surfaces each ticket as it lands (persona, severity, title), tracks per-tester activity (actions taken, tickets filed), and rules on clearance requests promptly. When every tester has finished:
+Everything above only works if it reaches the testers verbatim: a tester subagent sees nothing but its brief, so the brief IS the method. Use `tester-brief.md` (beside this file) as the template — fill its placeholders per persona and do not soften its rules. The load-bearing parts, in case you are tempted to trim: the in-character trait sentence (it is what makes a skimmer skim), the screenshot-evidence rule (without it testers judge from markup), the two-pass coverage plan with an action budget and a novelty stop rule (without them the slowest tester sets the wall clock), the file-when-you-hit-it ticket rule (batched tickets lose their reproduction steps), and the full safety block.
 
-1. Read every diary and any ticket bodies needed in full.
-2. Dedupe: where testers hit the same underlying issue, keep the clearest ticket and mark the rest duplicates pointing at it.
-3. Write `report.md` beside the tickets: **Overview** (what was tested, by whom), **Experience by persona** (a short capsule each, in their voice), **Findings by severity** (every non-duplicate ticket, one line each), **Themes** (patterns recurring across testers), **Suggested fix order**.
-4. Show the user the findings directly — headline issues, themes, what the testers actually said — so they can judge the state of the app without opening a single file.
+## Running it by hand (any harness)
+
+Where battletest is not built in, orchestrate it directly:
+
+1. **Create the run directory**: `<project>/.battletest/<yyyymmdd-hhmm>[-focus]/` with `run.md` (personas, focus, status: testing), plus empty `notes/`, `tickets/`, `profiles/`, `clearance/`.
+2. **Deal the team**: shuffle the archetype deck and deal without replacement; roll the four traits per tester; assign viewports on the desktop→mobile→desktop→tablet cycle; give each a human name. Record the full team in `run.md`.
+3. **Resolve the target once**: if the focus names a URL, every brief says "goto this, launch nothing"; otherwise the briefs carry the project-type table and each tester gets its own port offsets (base + index) and profile directory. Never make ten testers rediscover the same launch command — pre-flight anything shareable. Share *mechanics*, never *opinions*: testers must not see each other's findings mid-run, or independent confirmation dies.
+4. **Spawn all testers in parallel** as subagents (Task tool, background agents — whatever the harness offers), each with only its filled brief. They write their own diaries and tickets straight into the run directory.
+5. **Stay on watch, usefully**: poll the run directory between checks; surface tickets to the user as they land (persona, severity, title); answer clearance files promptly (deny when in doubt — an unanswered request is a deny after 5 minutes); triage incrementally — mark obvious duplicates while testers still run, so synthesis is mostly done when the last one finishes; and if a straggler drags long after the rest, send it a wrap-up message: file what you have, write the closing note, finish.
+6. **Synthesize** when all have returned (or the user stops the run — a stopped run still gets its report from whatever is on disk).
+
+## Synthesis: verify before you believe
+
+Deduplication is not clerical work — it is adversarial reconciliation, and it is where the report earns its trust:
+
+- **Independent duplicates are evidence, not noise.** Seven testers independently filing "the 404 page is a dead end" tells you frequency and severity no single report can. Count them in the canonical ticket before marking duplicates.
+- **Cross-examine the clusters.** Real runs produce confident false positives: a "button gives no feedback" cluster that was a screenshot-timing artifact (the flash outlives the click but not the capture cycle), "ghost text through the header" that was headless rendering of backdrop-filter, a "contradiction" that was the tester's own toggle state. Before a finding leads the report, check whether any tester verified the opposite — the skeptic archetype exists for this — and re-test cheap claims yourself. Dismissals go in the report too, labelled *investigated and dismissed*, so nobody re-litigates them later.
+- **Honor retractions.** A tester who re-tested and withdrew its own ticket did the method proud; reflect the retraction, don't resurrect the ticket.
+
+Then write `report.md` beside the tickets — **Overview** (what was tested, by whom, for how long), **Findings by severity** (deduped, with how many testers hit each), **Investigated and dismissed**, **Experience by persona** (a capsule each, in their voice), **Themes**, **Suggested fix order** — and show the user the findings directly in chat: headline issues, themes, what the testers actually said. They must be able to judge the state of the project without opening a single file.
 
 Nothing is fixed during the run; tickets are for later sessions, which mark them `fixed` as they land.
 
-> smolt users: this skill is implemented natively as the `/battletest` extension — storage under `.smolt/battletest/<run>/`, live ticket feed and per-tester counters in the TUI, and the clearance loop wired through the `battletest` tool's `wait`/`decide` actions.
+> smolt users: this skill is implemented natively as the `/battletest` extension — a per-tester `browse` tool (private headless browser, screenshot per action), storage under `.smolt/battletest/<run>/`, live ticket feed and per-tester action/ticket counters in the TUI, and the clearance loop wired through the `battletest` tool's `wait`/`decide` actions.
