@@ -66,7 +66,7 @@ function Install-Skills([string]$Target) {
     foreach ($skill in 'repo-conventions-bootstrap', 'repo-conventions-curator') {
         $dest = Join-Path $Target $skill
         if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
-        Copy-Item -Recurse (Join-Path $src ".github/skills/$skill") $dest
+        Copy-Item -Recurse (Join-Path $src "skills/engineering/$skill") $dest
     }
     Write-Host "Installed skills into $Target"
 }

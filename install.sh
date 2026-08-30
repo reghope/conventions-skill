@@ -66,7 +66,7 @@ install_skills() {
   mkdir -p "$target"
   for skill in repo-conventions-bootstrap repo-conventions-curator; do
     rm -rf "${target:?}/$skill"
-    cp -r "$SRC/.github/skills/$skill" "$target/"
+    cp -r "$SRC/skills/engineering/$skill" "$target/"
   done
   echo "Installed skills into $target"
 }

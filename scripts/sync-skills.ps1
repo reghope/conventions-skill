@@ -1,7 +1,13 @@
-# Mirror the canonical skills (.github/skills) into .claude/skills.
+# Mirror the canonical skills (skills/<category>/) into the agent-facing
+# directories: .claude/skills and .github/skills (flattened, no category).
 $ErrorActionPreference = 'Stop'
 Set-Location (Join-Path $PSScriptRoot '..')
-if (Test-Path '.claude/skills') { Remove-Item -Recurse -Force '.claude/skills' }
-New-Item -ItemType Directory -Force '.claude' | Out-Null
-Copy-Item -Recurse '.github/skills' '.claude/skills'
-Write-Host 'Synced .github/skills -> .claude/skills'
+foreach ($mirror in '.claude/skills', '.github/skills') {
+    if (Test-Path $mirror) { Remove-Item -Recurse -Force $mirror }
+    New-Item -ItemType Directory -Force $mirror | Out-Null
+}
+Get-ChildItem 'skills' -Directory | Get-ChildItem -Directory | ForEach-Object {
+    Copy-Item -Recurse $_.FullName (Join-Path '.claude/skills' $_.Name)
+    Copy-Item -Recurse $_.FullName (Join-Path '.github/skills' $_.Name)
+}
+Write-Host 'Synced skills/*/* -> .claude/skills and .github/skills'

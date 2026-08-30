@@ -1,4 +1,13 @@
-# Conventions skill
+# Skills
+
+A collection of agent skills, laid out one category per folder with one directory per skill (`skills/<category>/<skill>/SKILL.md`), in the style of [mattpocock/skills](https://github.com/mattpocock/skills).
+
+## Engineering
+
+- **`battletest`** — send a team of simulated users through an app: dealt personas across desktop/mobile/tablet viewports, screenshot-verified findings, tickets filed live, a clearance loop for risky actions, and one triaged report. See `skills/engineering/battletest/SKILL.md`.
+- **`repo-conventions-bootstrap`** / **`repo-conventions-curator`** — the repository-convention layer described below.
+
+# Conventions layer
 
 A portable repository-convention layer for coding agents. Each repository carries one concise, evidence-backed policy in a managed block in its root `AGENTS.md`; agents bootstrap it automatically on first open and curate it deliberately through a dedicated skill.
 
@@ -43,8 +52,8 @@ Both installers are idempotent: rerunning them only rewrites the managed blocks 
 
 ## Repository layout
 
-- `.github/skills/` - the canonical skill sources. Each skill keeps its `SKILL.md` lean and moves bulky reference material (like the bootstrap block template and example entries in `template.md`) into files loaded on demand.
-- `.claude/skills/` - a generated mirror for Claude Code. Edit the canonical copy, then run `scripts/sync-skills.sh` or `scripts/sync-skills.ps1`; CI (`check-sync.yml`) fails when the two drift.
+- `skills/<category>/<skill>/` - the canonical skill sources (currently one category, `engineering/`). Each skill keeps its `SKILL.md` lean and moves bulky reference material (like the bootstrap block template and example entries in `template.md`) into files loaded on demand.
+- `.github/skills/` and `.claude/skills/` - generated, flattened mirrors for agents that read those paths. Edit the canonical copy, then run `scripts/sync-skills.sh` or `scripts/sync-skills.ps1`; CI (`check-sync.yml`) fails when they drift.
 - `global/agent-policy.md` - the always-on policy the global install deploys.
 - `AGENTS.md` - this repository dogfoods the layer; its own policy lives there and is committed deliberately, since this repo is the source.
 
