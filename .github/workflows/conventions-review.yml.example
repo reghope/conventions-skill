@@ -24,7 +24,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           npm install -g @anthropic-ai/claude-code
-          claude -p "Follow .github/skills/repo-conventions-curator/SKILL.md in scheduled review mode: read-only. Report stale or contradicted rules in the managed repo-conventions block of AGENTS.md, the evidence, and a concise proposed curation. Do not modify any file." > review.md
+          claude -p "Follow .github/skills/conventions-curator/SKILL.md in scheduled review mode: read-only. Report stale or contradicted rules in the managed repo-conventions block of AGENTS.md, the evidence, and a concise proposed curation. Do not modify any file." > review.md
 
       # Option B: Copilot CLI (replace the step above; needs a Copilot-enabled token)
       # - name: Run curator in scheduled review mode
@@ -32,7 +32,7 @@ jobs:
       #     GH_TOKEN: ${{ secrets.COPILOT_CLI_TOKEN }}
       #   run: |
       #     npm install -g @github/copilot
-      #     copilot -p "Use the repo-conventions-curator skill in scheduled review mode: read-only. Report stale or contradicted rules, evidence, and a proposed curation. Do not modify any file." > review.md
+      #     copilot -p "Use the conventions-curator skill in scheduled review mode: read-only. Report stale or contradicted rules, evidence, and a proposed curation. Do not modify any file." > review.md
 
       - name: Open issue with findings
         env:

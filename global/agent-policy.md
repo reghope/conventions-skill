@@ -8,7 +8,7 @@ This policy is always active in every coding agent it is installed into. It appl
 - Once a scope is available, use the git root when one exists; otherwise use the selected folder.
 - Before normal work in that scope, check the root `AGENTS.md` for the managed `repo-conventions` block (delimited by HTML comment markers).
 - If the block exists, read the whole file and treat it as required context for the entire conversation.
-- If the block is missing or from an older version of this layer, run the `repo-conventions-bootstrap` skill immediately; if this agent cannot load skills, follow the procedure in `~/.agent-conventions/skills/repo-conventions-bootstrap/SKILL.md`. The user has opted in to this setup, so do not ask for confirmation or pause the user's task solely to create the convention layer.
+- If the block is missing or from an older version of this layer, run the `conventions` skill immediately; if this agent cannot load skills, follow the procedure in `~/.agent-conventions/skills/conventions/SKILL.md`. The user has opted in to this setup, so do not ask for confirmation or pause the user's task solely to create the convention layer.
 - If the folder is not writable, or existing instruction files conflict in a way that cannot be merged safely, say so clearly and preserve the user's files; do not silently continue as though the layer were active.
 
 ## Enforcement
@@ -23,7 +23,7 @@ This policy is always active in every coding agent it is installed into. It appl
 - A change is not done until it is verified: run the repository's authoritative build, test, and lint commands (as recorded in this policy or discovered in its tooling) over the affected area, and exercise the change directly when no automated check covers it. Watch for regressions beyond the changed lines - callers, dependents, shared code, existing tests. Report results honestly: failures are reported as failures, never hidden, skipped, or papered over.
 - When a framework, library, or tool in use is unfamiliar, look it up: read the official documentation for the version this repository pins (check manifests and lockfiles) the way a person would - the relevant pages in full, not one skimmed snippet - and verify what it says against the repository's actual behavior before acting on it or recording it. Do not guess from memory.
 - If work surfaces credible signs that the codebase is largely unmaintainable generated code, verify across several independent files and modules, then tell the user plainly and lay out cleanup options; never begin a cleanup unattended.
-- During ordinary implementation, change nothing in the managed convention block except appending candidate entries to its `Pending observations` inbox. Only the `repo-conventions-curator` skill, or the user directly, may change the rest.
+- During ordinary implementation, change nothing in the managed convention block except appending candidate entries to its `Pending observations` inbox. Only the `conventions-curator` skill, or the user directly, may change the rest.
 
 ## Learning
 
@@ -34,12 +34,12 @@ This policy is always active in every coding agent it is installed into. It appl
 - Skip what does not belong in policy: trivial or obvious facts, anything cheaply re-derived from the code, raw output dumps, task progress, and completed-work logs. General programming knowledge is not repository lore.
 - A fact that only ever appeared in command output or a file read is the easiest to lose - quote the exact command and the decisive output line as the entry's evidence, not a paraphrase.
 - Before appending, scan the inbox for the same pattern: corroborate an existing entry by adding your datetime and evidence to it rather than appending a duplicate line.
-- When the inbox has accumulated several entries, suggest running `repo-conventions-curator` rather than triaging it yourself mid-task.
+- When the inbox has accumulated several entries, suggest running `conventions-curator` rather than triaging it yourself mid-task.
 
 ## Curation
 
 - The managed block in `AGENTS.md` is a concise, evidence-backed policy, not a task log or a dump of every observed implementation detail.
-- Use `repo-conventions-curator` when the block needs to be initialized, refreshed, reviewed, deduplicated, or checked for stale information - especially after changes to project structure, tooling, or architecture. If skills are unavailable, follow `~/.agent-conventions/skills/repo-conventions-curator/SKILL.md`.
+- Use `conventions-curator` when the block needs to be initialized, refreshed, reviewed, deduplicated, or checked for stale information - especially after changes to project structure, tooling, or architecture. If skills are unavailable, follow `~/.agent-conventions/skills/conventions-curator/SKILL.md`.
 - Preserve explicit user directives. Record agent observations only when they are durable, relevant beyond one task, and backed by repository evidence.
 - Scheduled convention reviews are read-only: they report drift and propose curation, and never change policy or product code unattended.
 - Every applied curation ends with a brief report of what changed and why, including the supporting evidence or user decision. Never update the policy silently.

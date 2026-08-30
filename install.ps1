@@ -63,7 +63,12 @@ function Test-Ours([string]$File) {
 
 function Install-Skills([string]$Target) {
     New-Item -ItemType Directory -Force -Path $Target | Out-Null
-    foreach ($skill in 'repo-conventions-bootstrap', 'repo-conventions-curator') {
+    # Clear copies installed under the skills' old names.
+    foreach ($legacy in 'repo-conventions-bootstrap', 'repo-conventions-curator') {
+        $stale = Join-Path $Target $legacy
+        if (Test-Path $stale) { Remove-Item -Recurse -Force $stale }
+    }
+    foreach ($skill in 'conventions', 'conventions-curator') {
         $dest = Join-Path $Target $skill
         if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
         Copy-Item -Recurse (Join-Path $src "skills/engineering/$skill") $dest
@@ -95,18 +100,18 @@ if (-not $Repo) {
         Write-Block $agents (@'
 # Repository conventions
 
-> Managed by the repo-conventions skills. Not bootstrapped yet: run the `repo-conventions-bootstrap` skill (or follow `.github/skills/repo-conventions-bootstrap/SKILL.md`) to fill this block from repository evidence.
+> Managed by the conventions skills. Not bootstrapped yet: run the `conventions` skill (or follow `.github/skills/conventions/SKILL.md`) to fill this block from repository evidence.
 '@)
     }
 
     Write-Block (Join-Path $Path 'CLAUDE.md') (@'
 @AGENTS.md
 
-If `AGENTS.md` has no completed managed `repo-conventions` block, run the `repo-conventions-bootstrap` skill before other work.
+If `AGENTS.md` has no completed managed `repo-conventions` block, run the `conventions` skill before other work.
 '@)
 
     Write-Block (Join-Path $Path '.github/copilot-instructions.md') (@'
-Read and follow the repository policy in `AGENTS.md` at the repository root before any work; it is required context for the whole conversation. If it has no completed managed `repo-conventions` block, run the `repo-conventions-bootstrap` skill first.
+Read and follow the repository policy in `AGENTS.md` at the repository root before any work; it is required context for the whole conversation. If it has no completed managed `repo-conventions` block, run the `conventions` skill first.
 '@)
 
     if ($Shared) {
@@ -116,10 +121,10 @@ Read and follow the repository policy in `AGENTS.md` at the repository root befo
         # Ignore only files the layer owns outright; files carrying user content stay tracked.
         $entries = @(
             '# Convention layer, local to this machine by default; rerun with -Shared to commit it'
-            '.github/skills/repo-conventions-bootstrap/'
-            '.github/skills/repo-conventions-curator/'
-            '.claude/skills/repo-conventions-bootstrap/'
-            '.claude/skills/repo-conventions-curator/'
+            '.github/skills/conventions/'
+            '.github/skills/conventions-curator/'
+            '.claude/skills/conventions/'
+            '.claude/skills/conventions-curator/'
         )
         if (Test-Ours (Join-Path $Path 'AGENTS.md'))  { $entries += 'AGENTS.md' }
         if (Test-Ours (Join-Path $Path 'CLAUDE.md'))  { $entries += 'CLAUDE.md' }

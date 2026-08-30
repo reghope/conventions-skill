@@ -1,5 +1,5 @@
 ---
-name: repo-conventions-curator
+name: conventions-curator
 description: Curates the managed repository-convention block in the root AGENTS.md so it stays concise, current, evidence-backed, and free of duplicated or speculative rules. Use when the user asks to review, refresh, curate, deduplicate, or clean up repository conventions, when the Pending observations inbox needs triage, or when invoked by the scheduled convention-drift review.
 ---
 

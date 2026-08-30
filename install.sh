@@ -64,7 +64,9 @@ remove_block() {
 install_skills() {
   local target="$1" skill
   mkdir -p "$target"
-  for skill in repo-conventions-bootstrap repo-conventions-curator; do
+  # Clear copies installed under the skills' old names.
+  rm -rf "${target:?}/repo-conventions-bootstrap" "${target:?}/repo-conventions-curator"
+  for skill in conventions conventions-curator; do
     rm -rf "${target:?}/$skill"
     cp -r "$SRC/skills/engineering/$skill" "$target/"
   done
@@ -110,7 +112,7 @@ install_repo() {
     cat > "$tmpdir/seed.md" <<'SEED'
 # Repository conventions
 
-> Managed by the repo-conventions skills. Not bootstrapped yet: run the `repo-conventions-bootstrap` skill (or follow `.github/skills/repo-conventions-bootstrap/SKILL.md`) to fill this block from repository evidence.
+> Managed by the conventions skills. Not bootstrapped yet: run the `conventions` skill (or follow `.github/skills/conventions/SKILL.md`) to fill this block from repository evidence.
 SEED
     write_block "$repo/AGENTS.md" "$tmpdir/seed.md"
   fi
@@ -118,12 +120,12 @@ SEED
   cat > "$tmpdir/claude.md" <<'SHIM'
 @AGENTS.md
 
-If `AGENTS.md` has no completed managed `repo-conventions` block, run the `repo-conventions-bootstrap` skill before other work.
+If `AGENTS.md` has no completed managed `repo-conventions` block, run the `conventions` skill before other work.
 SHIM
   write_block "$repo/CLAUDE.md" "$tmpdir/claude.md"
 
   cat > "$tmpdir/copilot.md" <<'SHIM'
-Read and follow the repository policy in `AGENTS.md` at the repository root before any work; it is required context for the whole conversation. If it has no completed managed `repo-conventions` block, run the `repo-conventions-bootstrap` skill first.
+Read and follow the repository policy in `AGENTS.md` at the repository root before any work; it is required context for the whole conversation. If it has no completed managed `repo-conventions` block, run the `conventions` skill first.
 SHIM
   write_block "$repo/.github/copilot-instructions.md" "$tmpdir/copilot.md"
 
@@ -134,10 +136,10 @@ SHIM
     # Ignore only files the layer owns outright; files carrying user content stay tracked.
     {
       echo "# Convention layer, local to this machine by default; rerun with --shared to commit it"
-      echo ".github/skills/repo-conventions-bootstrap/"
-      echo ".github/skills/repo-conventions-curator/"
-      echo ".claude/skills/repo-conventions-bootstrap/"
-      echo ".claude/skills/repo-conventions-curator/"
+      echo ".github/skills/conventions/"
+      echo ".github/skills/conventions-curator/"
+      echo ".claude/skills/conventions/"
+      echo ".claude/skills/conventions-curator/"
       if is_ours "$repo/AGENTS.md"; then echo "AGENTS.md"; fi
       if is_ours "$repo/CLAUDE.md"; then echo "CLAUDE.md"; fi
       if is_ours "$repo/.github/copilot-instructions.md"; then echo ".github/copilot-instructions.md"; fi

@@ -1,11 +1,11 @@
 # Skills
 
-A collection of agent skills, laid out one category per folder with one directory per skill (`skills/<category>/<skill>/SKILL.md`), in the style of [mattpocock/skills](https://github.com/mattpocock/skills).
+A collection of agent skills, laid out one category per folder with one directory per skill (`skills/<category>/<skill>/SKILL.md`).
 
 ## Engineering
 
 - **`battletest`** — more than just finding bugs: a team of simulated users runs whatever the project is (web app, desktop app, CLI, TUI, or library) to learn how it actually feels to use. Dealt personas across desktop/mobile/tablet viewports, screenshot-verified findings, tickets filed live, a clearance loop for risky actions, and one triaged report. See `skills/engineering/battletest/SKILL.md`.
-- **`repo-conventions-bootstrap`** / **`repo-conventions-curator`** — the repository-convention layer described below.
+- **`conventions`** / **`conventions-curator`** — the repository-convention layer described below.
 
 # Conventions layer
 
@@ -16,7 +16,7 @@ A portable repository-convention layer for coding agents. Each repository carrie
 - **`AGENTS.md` is the policy.** It is read natively by Codex, Cursor, Gemini CLI, Google Jules, Amp, the GitHub Copilot coding agent, and others - no wiring needed. The policy lives inside an idempotent managed block delimited by `repo-conventions` begin/end HTML comment markers; everything outside the block stays user-owned.
 - **Shims cover the rest.** `CLAUDE.md` imports it with `@AGENTS.md` for Claude Code; `.github/copilot-instructions.md` covers Copilot CLI and chat; `GEMINI.md` covers default Gemini CLI setups. Shims contain only a managed block and never disturb existing user content.
 - **`global/agent-policy.md`** is the always-on user-level policy: it makes agents load the repository policy, bootstrap it when missing, and follow the precedence order - current user request, explicit user directives, confirmed conventions, repository evidence, then agent preference.
-- **Two skills do the work.** `repo-conventions-bootstrap` creates or upgrades the layer from repository evidence (assessing paradigm, architecture and layering, where shared code lives and how it is reused, naming, error handling, testing, and tooling); `repo-conventions-curator` is the only writer of the policy and runs read-only when scheduled.
+- **Two skills do the work.** `conventions` creates or upgrades the layer from repository evidence (assessing paradigm, architecture and layering, where shared code lives and how it is reused, naming, error handling, testing, and tooling); `conventions-curator` is the only writer of the policy and runs read-only when scheduled.
 - **It learns as it goes.** A fresh install starts conservative: bootstrap records only what the evidence supports and leaves the rest as open questions. Every task ends with a deliberate consolidation pass: agents append what the task taught - confirmed patterns, contradictions, user decisions, and dead ends recovered to working paths - to an append-only `Pending observations` inbox inside the block; the curator later promotes corroborated entries into real conventions and directives, tracks the policy's maturity (`young` to `established`), and discards the rest. Recording priority favors what saves the most rediscovery: user corrections first, then operational lore (exact commands, required flags and tokens, tool quirks, exact error strings), then procedures, then structure. Plug it in, and the policy hardens with use.
 - **It stays small on purpose.** The block carries a size budget (about 120 lines); curation is atomic - retiring, merging, and adding land in one pass judged against the final state - so the policy earns density instead of accumulating length and keeps fitting comfortably in every session's context.
 - **Guards against AI slop.** Code written under the policy must be optimised, concise, and human-readable, with commenting matched to the repository's own practice (or the user's stated preference). Every learned entry carries a UTC datetime so curation can age out stale knowledge, and if a codebase itself shows verified signs of unmaintainable generated code - checked across multiple files, not one bad example - the layer reports it to the user with cleanup options instead of quietly making it worse.

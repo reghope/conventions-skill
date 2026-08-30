@@ -1,5 +1,5 @@
 ---
-name: repo-conventions-bootstrap
+name: conventions
 description: Initializes or upgrades a repository's convention layer - a managed policy block in the root AGENTS.md plus shims for coding agents that do not read AGENTS.md natively. Use when entering a repository or workspace folder whose root AGENTS.md has no completed repo-conventions block, when migrating a legacy v1 convention layout, or when the user asks to set up, initialize, or bootstrap repository conventions.
 ---
 

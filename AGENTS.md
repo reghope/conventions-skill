@@ -1,7 +1,7 @@
 <!-- repo-conventions:begin v2 -->
 # Repository conventions
 
-> Managed by the repo-conventions skills. Curate with `repo-conventions-curator`; during ordinary implementation, change nothing here except appending to `Pending observations`. Keep it concise, human-readable, and evidence-backed - a policy, not a task log.
+> Managed by the conventions skills. Curate with `conventions-curator`; during ordinary implementation, change nothing here except appending to `Pending observations`. Keep it concise, human-readable, and evidence-backed - a policy, not a task log.
 
 ## Working contract
 
@@ -33,9 +33,9 @@
 - Policy and skill prose is harness-neutral ("coding agent"); specific products are named only in the README, shims, workflow examples, and installers. Scope: whole repo. Evidence: `global/agent-policy.md`, `.github/skills/`. Verified: 2026-08-27. Status: active.
 - The installers support two scopes: global (default; every repository, installed into each agent's home configuration) and repo-scoped (`--repo` / `-Repo`; layer committed into one repository, no always-on policy). Both are idempotent and only write inside managed blocks. Scope: `install.sh`, `install.ps1`. Evidence: those files, `README.md`. Verified: 2026-08-27. Status: active.
 - Everything the layer creates in a consumer repository defaults to a managed `.gitignore` section using `# repo-conventions` begin/end comment lines, following the same idempotent, content-preserving managed-block rules; the user opts out via `--shared` / `-Shared` or by asking to commit the layer. Files carrying any user content are never gitignored. Scope: `install.sh`, `install.ps1`, the bootstrap gitignore step. Evidence: those files. Verified: 2026-08-27. Status: active.
-- Skills keep `SKILL.md` lean with third-person, trigger-rich descriptions and move bulky reference material into files referenced one level deep (for example the bootstrap `template.md` with its example entries), per Agent Skills best practice. Scope: `.github/skills/`. Evidence: `repo-conventions-bootstrap/SKILL.md`, `repo-conventions-bootstrap/template.md`. Verified: 2026-08-27. Status: active.
-- Every learned or re-verified entry carries an ISO 8601 UTC datetime so curation can age it; uncorroborated pending observations go stale after about thirty days. Scope: template, skills. Evidence: `repo-conventions-bootstrap/template.md`, `repo-conventions-curator/SKILL.md`. Verified: 2026-08-27T13:38Z. Status: active.
-- The working contract requires agent-written code to be optimised, concise, human-readable, and comment-matched to the repository or the user's stated preference; bootstrap verifies codebase health across multiple files and reports cleanup options to the user rather than refactoring unattended. Scope: template, skills, global policy. Evidence: `repo-conventions-bootstrap/template.md`, `repo-conventions-bootstrap/SKILL.md` step 6, `global/agent-policy.md`. Verified: 2026-08-27T13:38Z. Status: active.
+- Skills keep `SKILL.md` lean with third-person, trigger-rich descriptions and move bulky reference material into files referenced one level deep (for example the bootstrap `template.md` with its example entries), per Agent Skills best practice. Scope: `.github/skills/`. Evidence: `conventions/SKILL.md`, `conventions/template.md`. Verified: 2026-08-27. Status: active.
+- Every learned or re-verified entry carries an ISO 8601 UTC datetime so curation can age it; uncorroborated pending observations go stale after about thirty days. Scope: template, skills. Evidence: `conventions/template.md`, `conventions-curator/SKILL.md`. Verified: 2026-08-27T13:38Z. Status: active.
+- The working contract requires agent-written code to be optimised, concise, human-readable, and comment-matched to the repository or the user's stated preference; bootstrap verifies codebase health across multiple files and reports cleanup options to the user rather than refactoring unattended. Scope: template, skills, global policy. Evidence: `conventions/template.md`, `conventions/SKILL.md` step 6, `global/agent-policy.md`. Verified: 2026-08-27T13:38Z. Status: active.
 
 ## Agent observations
 

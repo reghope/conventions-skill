@@ -6,7 +6,7 @@ Copy this block into the root `AGENTS.md` (or replace the unbootstrapped seed bl
 <!-- repo-conventions:begin v2 -->
 # Repository conventions
 
-> Managed by the repo-conventions skills. Curate with `repo-conventions-curator`; during ordinary implementation, change nothing here except appending to `Pending observations`. Keep it concise, human-readable, and evidence-backed - a policy, not a task log. Size budget: about 120 lines for the whole block; curation makes room and adds in the same pass rather than letting it grow.
+> Managed by the conventions skills. Curate with `conventions-curator`; during ordinary implementation, change nothing here except appending to `Pending observations`. Keep it concise, human-readable, and evidence-backed - a policy, not a task log. Size budget: about 120 lines for the whole block; curation makes room and adds in the same pass rather than letting it grow.
 
 ## Working contract
 
