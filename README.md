@@ -4,7 +4,7 @@ A collection of agent skills, laid out one category per folder with one director
 
 ## Engineering
 
-- **`battletest`** — send a team of simulated users through an app: dealt personas across desktop/mobile/tablet viewports, screenshot-verified findings, tickets filed live, a clearance loop for risky actions, and one triaged report. See `skills/engineering/battletest/SKILL.md`.
+- **`battletest`** — more than just finding bugs: a team of simulated users runs whatever the project is (web app, desktop app, CLI, TUI, or library) to learn how it actually feels to use. Dealt personas across desktop/mobile/tablet viewports, screenshot-verified findings, tickets filed live, a clearance loop for risky actions, and one triaged report. See `skills/engineering/battletest/SKILL.md`.
 - **`repo-conventions-bootstrap`** / **`repo-conventions-curator`** — the repository-convention layer described below.
 
 # Conventions layer

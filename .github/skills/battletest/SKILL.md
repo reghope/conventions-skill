@@ -1,10 +1,17 @@
 ---
 name: battletest
-description: Send a team of simulated users through an app to find bugs, UI inconsistencies, UX friction, performance problems, and bad wording — each tester a distinct persona on its own screen size, filing tickets as it goes, folded into one triaged report.
+description: More than just finding bugs - send a team of simulated users through whatever the project is (web app, desktop app, CLI, TUI, or library) to learn how it actually feels to use. Distinct personas across screen sizes surface bugs, UI inconsistencies, UX friction, performance problems, and bad wording as tickets, folded into one triaged report.
 disable-model-invocation: true
 ---
 
-An app's developer cannot use it the way a stranger does. Battletesting fields a **team of simulated users** — each one a subagent with its own persona, temperament, and screen size — who run the app the way real users would, keep a diary of the experience, and file a ticket the moment something is wrong. When the last tester finishes, their findings are deduped and folded into one report with a suggested fix order. The user gets what a usability lab and a QA pass would have found, without walking the app themselves.
+**More than just finding bugs.** A project's developer cannot use it the way a stranger does, and a test suite cannot tell you the onboarding is confusing, the empty state feels broken, the wording changes tone mid-flow, or the third step of the core journey is where impatient people give up. Battletesting fields a **team of simulated users** — each a subagent with its own persona, temperament, and screen size — who use the project the way real users would, keep a diary of the experience, and file a ticket the moment something is wrong *or merely feels wrong*. When the last tester finishes, the findings are deduped and folded into one report with themes and a suggested fix order: part QA pass, part usability lab, part first-impressions panel.
+
+**Project-agnostic.** Battletest is not just for the web — testers use whatever the project offers:
+
+- **Web app or site**: browsed at real viewports (desktop, phone, tablet), screenshot by screenshot.
+- **Desktop/Electron app**: launched with a remote debugging port and driven over CDP.
+- **CLI or TUI**: the binary run for real — commands, flags, prompts, help text, first-run experience, error messages under weird input.
+- **Library, API, or SDK**: its user is a developer, so the tester becomes one — following the README quickstart in a scratch project, running the documented examples exactly as written, and judging install friction, time to first success, and how the errors read.
 
 Invoked as `/battletest <count> [focus]`: `count` testers (default 3, keep it ≤ 25), and an optional focus — an area to concentrate on, or a hosted URL to test directly instead of launching anything locally.
 
