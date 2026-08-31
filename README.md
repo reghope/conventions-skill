@@ -1,6 +1,6 @@
 # Skills
 
-A collection of **harness-agnostic** agent skills, laid out one category per folder with one directory per skill (`skills/<category>/<skill>/SKILL.md`). The skills are written for no particular tool: each one describes a method any capable agent can execute — Claude Code, Copilot, Codex, Gemini CLI, smolt, or a person following the steps by hand. The installers just wire the same files into whichever agents live on your machine.
+A collection of agent skills that work with any coding agent, laid out one category per folder with one directory per skill (`skills/<category>/<skill>/SKILL.md`). Each skill describes a method rather than a tool integration — Claude Code, Copilot, Codex, Gemini CLI, smolt, or a person following the steps by hand can all run it. The installers just wire the same files into whichever agents live on your machine.
 
 ## Engineering
 
