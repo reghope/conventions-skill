@@ -1,6 +1,6 @@
 ---
 name: battletest
-description: More than just finding bugs - send a team of simulated users through whatever the project is (web app, desktop app, CLI, TUI, or library) to learn how it actually feels to use. Distinct personas across screen sizes surface bugs, UI inconsistencies, UX friction, performance problems, and bad wording as tickets, folded into one triaged report.
+description: Simulated users test the app like real people - bugs, UX friction, and rough edges filed as tickets, folded into one report
 disable-model-invocation: true
 ---
 
