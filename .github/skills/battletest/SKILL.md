@@ -89,6 +89,22 @@ Everything above only works if it reaches the testers verbatim: a tester subagen
 
 **Budgets are ceilings, not suggestions.** A tester meaningfully past its budget (~120%) gets one supervisor message: stop exploring, file what you have, write the closing note, finish. Stragglers are what turn a thirty-minute run into an eighty-minute one.
 
+## Show the run while it happens
+
+A battletest that runs in silence looks broken and wastes its best property: findings that land live. The person watching must never stare at a bare "running tools" line for minutes. Non-negotiable output contract for the orchestrator:
+
+- **Announce each phase in one line as it starts**: preflight result ("build is current" / "rebuilt dist first"), the team as it is dealt (one line per tester: name, archetype, viewport, one-phrase angle), dispatch, and later wrap-ups and synthesis.
+- **Print a roster between every poll of the run directory** (every couple of minutes while testers run), one line per tester in this shape, built from what is on disk — diary length and last `### HH:MM — <area>` heading, tickets filed under their persona:
+
+  ```
+  Ada (generalist, desktop) · 14 notes · 2 tickets · testing checkout
+  Marie (specialist: accessibility, mobile) · 9 notes · 4 tickets · in settings
+  ```
+
+- **Surface every ticket the moment it lands**, as its own line: `Marie filed [major/accessibility] "Focus trap in the payment modal" — checkout`. The user should be able to stop the run early because the findings already told them enough — that is a feature.
+- **Say what changed, not everything again**: after the first roster, lead with deltas (new tickets, testers finished, a straggler warned) and keep the roster compact beneath.
+- **Never go dark**: if a poll finds nothing new, one short line ("all four still testing, nothing new since last check") beats silence.
+
 ## Running it by hand (any harness)
 
 Where battletest is not built in, orchestrate it directly:
@@ -98,7 +114,7 @@ Where battletest is not built in, orchestrate it directly:
 3. **Deal or design the team** per the sizing rules; record the full team in `run.md`.
 4. **Resolve the target once**: if the focus names a URL, every brief says "goto this, launch nothing"; otherwise the briefs carry the project-type table and each tester gets its own port offsets (base + index) and profile directory. Never make ten testers rediscover the same launch command — pre-flight anything shareable. Share *mechanics*, never *opinions*: testers must not see each other's findings mid-run, or independent confirmation dies — the tickets directory is the one deliberate exception, for filing-time dedupe.
 5. **Spawn all testers in parallel** as subagents (Task tool, background agents — whatever the harness offers), each with only its filled brief, at low thinking. They write their own diaries and tickets straight into the run directory.
-6. **Stay on watch, usefully**: poll the run directory between checks; surface tickets to the user as they land (persona, severity, title); answer clearance files promptly (deny when in doubt — an unanswered request is a deny after 5 minutes); triage incrementally — mark obvious duplicates while testers still run, so synthesis is mostly done when the last one finishes; and send a budget-breaker or straggler its wrap-up message. If testers start reporting known features as missing, check for a stale build before believing them.
+6. **Stay on watch, visibly**: poll the run directory on a short cadence and narrate per the output contract above — roster lines, tickets as they land, deltas between checks. Answer clearance files promptly (deny when in doubt — an unanswered request is a deny after 5 minutes); triage incrementally — mark obvious duplicates while testers still run, so synthesis is mostly done when the last one finishes; and send a budget-breaker or straggler its wrap-up message. If testers start reporting known features as missing, check for a stale build before believing them.
 7. **Record the form** when all have returned: for each tester, a severity-weighted score of their non-duplicate tickets (blocker 8, major 4, minor 2, polish 1), actions, tokens, wall clock, and the full brief they ran under — one file per run plus a cumulative log across runs. This is what future team sizing reads; name the strongest tester in the report.
 8. **Synthesize** (or when the user stops the run — a stopped run still gets its report from whatever is on disk).
 
