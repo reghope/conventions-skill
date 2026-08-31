@@ -66,7 +66,7 @@ install_skills() {
   mkdir -p "$target"
   # Clear copies installed under the skills' old names.
   rm -rf "${target:?}/repo-conventions-bootstrap" "${target:?}/repo-conventions-curator"
-  for skill in conventions conventions-curator; do
+  for skill in conventions conventions-curator battletest; do
     rm -rf "${target:?}/$skill"
     cp -r "$SRC/skills/engineering/$skill" "$target/"
   done
@@ -138,8 +138,10 @@ SHIM
       echo "# Convention layer, local to this machine by default; rerun with --shared to commit it"
       echo ".github/skills/conventions/"
       echo ".github/skills/conventions-curator/"
+      echo ".github/skills/battletest/"
       echo ".claude/skills/conventions/"
       echo ".claude/skills/conventions-curator/"
+      echo ".claude/skills/battletest/"
       if is_ours "$repo/AGENTS.md"; then echo "AGENTS.md"; fi
       if is_ours "$repo/CLAUDE.md"; then echo "CLAUDE.md"; fi
       if is_ours "$repo/.github/copilot-instructions.md"; then echo ".github/copilot-instructions.md"; fi

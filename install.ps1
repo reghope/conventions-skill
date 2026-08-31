@@ -68,7 +68,7 @@ function Install-Skills([string]$Target) {
         $stale = Join-Path $Target $legacy
         if (Test-Path $stale) { Remove-Item -Recurse -Force $stale }
     }
-    foreach ($skill in 'conventions', 'conventions-curator') {
+    foreach ($skill in 'conventions', 'conventions-curator', 'battletest') {
         $dest = Join-Path $Target $skill
         if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
         Copy-Item -Recurse (Join-Path $src "skills/engineering/$skill") $dest
@@ -123,8 +123,10 @@ Read and follow the repository policy in `AGENTS.md` at the repository root befo
             '# Convention layer, local to this machine by default; rerun with -Shared to commit it'
             '.github/skills/conventions/'
             '.github/skills/conventions-curator/'
+            '.github/skills/battletest/'
             '.claude/skills/conventions/'
             '.claude/skills/conventions-curator/'
+            '.claude/skills/battletest/'
         )
         if (Test-Ours (Join-Path $Path 'AGENTS.md'))  { $entries += 'AGENTS.md' }
         if (Test-Ours (Join-Path $Path 'CLAUDE.md'))  { $entries += 'CLAUDE.md' }
