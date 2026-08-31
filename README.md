@@ -1,6 +1,6 @@
 # Skills
 
-A collection of agent skills, laid out one category per folder with one directory per skill (`skills/<category>/<skill>/SKILL.md`).
+A collection of **harness-agnostic** agent skills, laid out one category per folder with one directory per skill (`skills/<category>/<skill>/SKILL.md`). The skills are written for no particular tool: each one describes a method any capable agent can execute — Claude Code, Copilot, Codex, Gemini CLI, smolt, or a person following the steps by hand. The installers just wire the same files into whichever agents live on your machine.
 
 ## Engineering
 
@@ -49,6 +49,20 @@ This installs the always-on policy into each agent's home configuration (`~/.cop
 This seeds `AGENTS.md` with an unbootstrapped managed block; the first agent session in the repository completes the bootstrap from actual repository evidence. By default the created files are gitignored so the layer stays local to your machine. To opt out and commit the layer so collaborators get it too, add `--shared` (or `-Shared`) - rerunning with the flag removes the managed `.gitignore` section again.
 
 Both installers are idempotent: rerunning them only rewrites the managed blocks and preserves everything else. Start a new agent session after installing.
+
+## Updating
+
+The installed skills are plain files copied from this repository, so updating is pull-and-reinstall — one command:
+
+```bash
+./update.sh
+```
+
+```powershell
+./update.ps1
+```
+
+That pulls the latest commit and reruns the installer (pass the same `--repo`/`-Repo` flags for a repo-scoped install). Because installs are idempotent, it only ever refreshes the managed blocks and skill copies — nothing of yours is touched. Run it whenever you like; a new agent session picks the update up.
 
 ## Repository layout
 
